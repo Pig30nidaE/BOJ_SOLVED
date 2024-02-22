@@ -3,6 +3,7 @@ input = sys.stdin.readline
 n = int(input())
 
 Set = set()
+Set2 = set(i for i in range(1, 21))
 for i in range(n):
 	command = list(input().split())
 	if len(command) > 1:
@@ -20,7 +21,6 @@ for i in range(n):
 				Set.remove(command[1])
 			else: Set.add(command[1])
 	else:
-		if command[0][0] == 'e':
-			Set.clear()
-		else:
-			Set = set(i for i in range(1, 21))
+		Set.clear()
+		if command[0][0] == 'a':
+			Set.update(Set2)
