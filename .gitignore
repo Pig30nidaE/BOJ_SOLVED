@@ -1,0 +1,7 @@
+.cph/
+
+*.out
+
+*.dSYM/
+
+WorkSpace/
