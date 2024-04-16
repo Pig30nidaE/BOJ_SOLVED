@@ -20,6 +20,6 @@ def recur(idx: int, n: int, sum: int, nums: list)->int:
 	dp[idx] = nums[idx] + max
 	return dp[idx]
 
-for i in range(n):
+for i in range(n - 1, -1, -1):
 	recur(i, n, 0, nums)
 print(max(dp.values()))
