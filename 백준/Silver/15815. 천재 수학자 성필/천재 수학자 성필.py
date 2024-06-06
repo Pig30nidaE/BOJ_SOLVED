@@ -5,8 +5,5 @@ for i in formula:
 	else:
 		res1 = stack.pop()
 		res2 = stack.pop()
-		if i == '/':
-			stack.append(eval(f'{res2} // {res1}'))
-		else:
-			stack.append(eval(f'{res2} {i} {res1}'))
+		stack.append(int(eval(f'{res2} {i} {res1}')))
 print(stack.pop())
