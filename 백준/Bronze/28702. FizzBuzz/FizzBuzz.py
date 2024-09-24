@@ -1,9 +1,6 @@
-from sys import stdin
-input = stdin.readline
-
-n1 = input().strip()
-n2 = input().strip()
-n3 = input().strip()
+n1 = input()
+n2 = input()
+n3 = input()
 
 k = 3
 ans = 0
