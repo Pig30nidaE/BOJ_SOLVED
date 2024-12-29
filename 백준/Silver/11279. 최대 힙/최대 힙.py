@@ -1,4 +1,4 @@
-from sys import stdin
+from sys import stdin, stdout
 from collections import deque
 input = lambda : int(stdin.readline())
 
@@ -6,11 +6,12 @@ if __name__ == '__main__':
     n = int(input())
 
     max_heap = deque()
+    answer_list = []
     for _ in range(n):
         command = input()
         if command == 0:
             if max_heap:
-                print(max_heap.popleft())
+                answer_list.append(max_heap.popleft())
                 max_heap.rotate(1)
                 idx = 0
                 child1 = idx * 2 + 1
@@ -44,7 +45,7 @@ if __name__ == '__main__':
                     child1 = idx * 2 + 1
                     child2 = idx * 2 + 2
             else:
-                print(0)
+                answer_list.append(0)
         else:
             max_heap.append(command)
             idx = len(max_heap) - 1
@@ -53,5 +54,8 @@ if __name__ == '__main__':
                 max_heap[idx], max_heap[parrent] = max_heap[parrent], max_heap[idx]
                 idx = parrent
                 parrent = (idx - 1) // 2
+    for s in answer_list:
+        stdout.write(str(s))
+        stdout.write("\n")
         
 
