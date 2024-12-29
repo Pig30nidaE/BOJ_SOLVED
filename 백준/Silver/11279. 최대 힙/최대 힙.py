@@ -54,8 +54,5 @@ if __name__ == '__main__':
                 max_heap[idx], max_heap[parrent] = max_heap[parrent], max_heap[idx]
                 idx = parrent
                 parrent = (idx - 1) // 2
-    for s in answer_list:
-        stdout.write(str(s))
-        stdout.write("\n")
-        
+    stdout.write('\n'.join(map(str, answer_list))) 
 
