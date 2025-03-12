@@ -1,14 +1,15 @@
 from sys import stdin
 from collections import deque
-input = lambda : stdin.readline().strip()
+input = lambda : stdin.readline()
 
 n = int(input())
 rec = []
 for _ in range(n):
-    rec.append(list(map(int, list(input()))))
+    rec.append(list(map(int," ".join(input()).split())))
 visited = set()
 counter = []
 house = 0
+chk = [[1, 0, -1, 0], [0, 1, 0, -1]]
 for i in range(n):
     for j in range(n):
         if rec[i][j] and (i, j) not in visited:
@@ -19,7 +20,7 @@ for i in range(n):
             count = 1
             while queue:
                 node = queue.popleft()
-                for row, col in zip([1, 0, -1, 0], [0, 1, 0, -1]):
+                for row, col in zip(chk[0], chk[1]):
                     new_y, new_x = node[0] + row, node[1] + col
                     if 0 <= new_x < n and 0 <= new_y < n:
                         if rec[new_y][new_x] and (new_y, new_x) not in visited:
