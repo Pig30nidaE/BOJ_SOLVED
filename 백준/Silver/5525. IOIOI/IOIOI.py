@@ -1,19 +1,27 @@
-from sys import stdin
-input = lambda: stdin.readline()
+from sys import stdin, stdout
+input = stdin.readline
+print = stdout.write
 
-n = int(input())
-m = int(input())
-s = input().strip()
-tofind = 'I' + 'OI' * n
-tofind_len = len(tofind)
-count = 0
-for i in range(m):
-    if s[i] == 'I':
-        j = 0
-        while j < tofind_len and i + j < m and s[i + j] == tofind[j]:
-            j += 1
-        if j == tofind_len:
-            count += 1
-        else:
-            i += j
-print(count)
+
+
+def main():
+	n = int(input())
+	string_len = int(input())
+	string = input().strip()
+	IOI = 'IOI'
+	
+	i = loop = count = 0
+	while i <= string_len - 3:
+		if string[i:i + 3] == IOI:
+			i += 2
+			loop += 1
+			if loop == n:
+				count += 1
+				loop -= 1
+		else:
+			loop = 0
+			i += 1
+	print(f'{count}')
+
+if __name__ == '__main__':
+	main()
