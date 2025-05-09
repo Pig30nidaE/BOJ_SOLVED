@@ -1,23 +1,21 @@
 n = int(input())
 cnt = 0
-cols = [False for _ in range(n)]
-diag1 = [False for _ in range(2 * n)]
-diag2 = [False for _ in range(2 * n)]
 
-
-def recur(row, n):
+def recur(row, cols, diag1, diag2):
     global cnt
     if row == n:
         cnt += 1
         return
-    for col in range(n):
-        new_diag1 = col + row
-        new_diag2 = col - row
-        if cols[col] or diag1[new_diag1] or diag2[new_diag2]:
-            continue
-        cols[col] = diag1[new_diag1] = diag2[new_diag2] = True
-        recur(row + 1, n)
-        cols[col] = diag1[new_diag1] = diag2[new_diag2] = False
 
-recur(0, n)
+    # 가능한 모든 자리: n비트 모두 켜기 -> ~(cols | diag1 | diag2)
+    avail = (~(cols | diag1 | diag2)) & ((1 << n) - 1)
+    while avail:
+        pick = avail & -avail  # 가장 오른쪽 비트만 선택
+        avail -= pick
+        recur(row + 1,
+              cols | pick,
+              (diag1 | pick) << 1,
+              (diag2 | pick) >> 1)
+
+recur(0, 0, 0, 0)
 print(cnt)
