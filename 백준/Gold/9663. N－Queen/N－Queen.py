@@ -1,25 +1,23 @@
-def check(row, col, cols, diags1, diags2) -> bool:
-    if col in cols or row + col in diags1 or row - col in diags2:
-        return False
-    return True
+n = int(input())
+cnt = 0
+cols = [False for _ in range(n)]
+diag1 = [False for _ in range(2 * n)]
+diag2 = [False for _ in range(2 * n)]
 
-def recur(depth, n, cols, diags1, diags2, count) -> int:
-    if depth == n:
-        return 1
-    for i in range(n):
-        if check(depth, i, cols, diags1, diags2):
-            cols.add(i)
-            diags1.add(depth + i)
-            diags2.add(depth - i)
-            count += recur(depth + 1, n, cols, diags1, diags2, 0)
-            cols.remove(i)
-            diags1.remove(depth + i)
-            diags2.remove(depth - i)
-    return count
 
-def solution():
-    n = int(input())
-    print(recur(0, n, set(), set(), set(), 0))
+def recur(row, n):
+    global cnt
+    if row == n:
+        cnt += 1
+        return
+    for col in range(n):
+        new_diag1 = col + row
+        new_diag2 = col - row
+        if cols[col] or diag1[new_diag1] or diag2[new_diag2]:
+            continue
+        cols[col] = diag1[new_diag1] = diag2[new_diag2] = True
+        recur(row + 1, n)
+        cols[col] = diag1[new_diag1] = diag2[new_diag2] = False
 
-if __name__ == '__main__':
-    solution()
+recur(0, n)
+print(cnt)
