@@ -1,31 +1,21 @@
 def solution(n, w, num):
-    boxes =[[0] * w for _ in range(n // w + 1)]
-    box_num = 1
-    row = 0
-    col = 0
-    col_plus = 1
-    while box_num < n + 1:
-        boxes[row][col] = box_num
-        box_num += 1
-        col += col_plus
-        if col == w:
-            col_plus *= -1
-            col -= 1
-            row += 1
-        if col == -1:
-            col_plus *= -1
-            col += 1
-            row += 1
-        
-    flag = False
-    for i in range(n // w + 1):
-        for j in range(w):
-            if boxes[i][j] == num:
-                answer = (n // w + 1) - i
-                if boxes[-1][j] == 0:
-                    answer -= 1
-                flag = True
-                break
-        if flag:
-            break
-    return answer
+	h = n // w + 1
+	boxes = [[0] * w for _ in range(h)]
+	j = 0
+	box_num = 1
+	power = 1
+	for i in range(h - 1, -1, -1):
+		while 0 <= j < w:
+			if box_num <= n:
+				boxes[i][j] = box_num
+				if box_num == num:
+					answer = (i, j)
+			j += power
+			box_num += 1
+		power *= -1
+		j += power
+	idx = 0
+	while idx < answer[0] and not boxes[idx][answer[1]]:
+		idx += 1
+	answer = answer[0] - idx + 1
+	return answer
